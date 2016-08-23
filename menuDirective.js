@@ -25,7 +25,7 @@ angular.module('menu.directive', [])
 
             link: function (scope, element, attrs) {
                 // check if this child has other children
-                if (angular.isArray(scope.child.children)) {
+                if (angular.isArray(scope.child.children) && (scope.child.children.length >0) ) {
                     // append the collection directive to this element
                     element.append("<ul class='dropdown-menu'>" +
                         "<tree-menu listmenu='child.children'></tree-menu></ul>");
