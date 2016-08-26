@@ -7,7 +7,7 @@ angular.module('menu.directive', [])
             replace: true,
             template: "<sub-menu ng-repeat='member in childListMenu' child={{member}}></sub-menu>",
             link : function (scope, element, attrs) {
-                scope.childListMenu = JSON.parse(attrs.listmenu);
+                scope.childListMenu = angular.fromJson(attrs.listmenu);
             }
         }
     })
@@ -21,12 +21,12 @@ angular.module('menu.directive', [])
             "<a>{{children.nameMenu_SubMenu}}</a></li>",
 
             link: function (scope, element, attrs) {
-                scope.children = JSON.parse(attrs.child);
+                scope.children = angular.fromJson(attrs.child);
                 // check if this children has other children
                 if (angular.isArray(scope.children.childrens) && (scope.children.childrens.length >0) ) {
                     // append the collection directive to this element
                     element.append("<ul class='dropdown-menu'>" +
-                        "<tree-menu listmenu='child.childrens'></tree-menu></ul>");
+                        "<tree-menu listmenu='{{child.childrens}}'></tree-menu></ul>");
                     // we need to tell angular to render the directive    
                     $compile(element.contents())(scope);
                 }
